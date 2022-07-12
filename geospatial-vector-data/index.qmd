@@ -1,0 +1,106 @@
+---
+title: "geospatial-vector-data"
+author: "Kyle Onda"
+format: html
+---
+
+# Geospatial Vector Data
+
+In this blog, I am going to describe some practices that the
+Internet of Water recommends when it comes to sharing geospatial vector data. But
+first, what is geospatial vector data, and why is it important as a component
+of water data?
+
+Geospatial vector data represents particular features (things with locations in GIS speak) on Earth, and attributes about them. In general, vector data uses combinations of X-Y coordinates to describe the location, which might be a discrete **point**, **line**, **polygon**, or collections of any of them. Vector data is important for water science and management, because it is often at the foundation of how we generate, analyze, and communicate water data.
+
+For example, to analyze and describe a region's water quality, we may need to represent a watershed as a polygon, within which are stream segments represented as lines, near which are water quality sampling stations represented as points. All of these features in turn have various attributes that may include identifiers, names, and summary statistics regarding observed and modeled water quality metrics. The interactive figure below is composed of just such a combination of geospatial vector data around Morgan Creek near Chapel Hill, NC.
+
+```{r,  echo=FALSE, message=FALSE, warning=FALSE}
+library(sf)
+library(mapview)
+library(dplyr)
+
+nldiURLs <- list(site_data = "https://labs.waterdata.usgs.gov/api/nldi/linked-data/nwissite/USGS-02097517",
+             basin_boundary = "https://labs.waterdata.usgs.gov/api/nldi/linked-data/nwissite/USGS-02097517/basin",
+             UT = "https://labs.waterdata.usgs.gov/api/nldi/linked-data/nwissite/USGS-02097517/navigation/UT/flowlines?distance=999",
+             UM = "https://labs.waterdata.usgs.gov/api/nldi/linked-data/nwissite/USGS-02097517/navigation/UM/flowlines?distance=999",
+             DM = "https://labs.waterdata.usgs.gov/api/nldi/linked-data/nwissite/USGS-02097517/navigation/DM/flowlines?distance=999",
+             UTwqp = "https://labs.waterdata.usgs.gov/api/nldi/linked-data/nwissite/USGS-02097517/navigation/UT/wqp?distance=999",
+             DMwqp = "https://labs.waterdata.usgs.gov/api/nldi/linked-data/nwissite/USGS-02097517/navigation/DM/wqp?distance=999")
+
+nldi_data <- list()
+
+for(n in names(nldiURLs)) {
+  nldi_data[n] <- list(sf::read_sf(nldiURLs[n][[1]]))
+ # print(paste(n, "is of class", class(nldi_data[[n]]), "and has", nrow(nldi_data[[n]]), "features"))
+}
+
+map <- mapview::mapview(nldi_data$basin_boundary, layer.name = "basin polygon", alpha.region=0, color="red", lwd=3, col.region="red")
+map <- map + mapview::mapview(nldi_data$UT |> mutate(nhdplus_comid="comid"), color="blue", legend=TRUE, layer.name = "stream flowlines")
+map <- map + mapview::mapview(nldi_data$UTwqp, color="black", col.regions="green", legend=TRUE, layer.name = "Water Quality Monitoring Locations")
+
+map
+
+```
+
+It is important to be able to share this data in ways that are easy for scientists to analyze and for software developers to work with to make decision support tools and public communication materials. This is where **Data Standards** and **API Standards** come into play.
+
+# Geospatial Data Standards
+
+### Why?
+
+So people running various analysis software (ArcGIS Pro, QGIS, R, Python, etc) can work with your data without converting to some other special format or fixing formatting issues beforehand
+
+### Which ones?
+
+-   geopackage for bulk downloads (new NHDHR examples)
+
+-   geojson for web viewing (GML for more complicated geometries, or FGB for very large. geoparquet for very very large)
+
+-   shapefile (should not be the only way it is shared, but useful since it is the most common format)
+
+-   ESRI file geodatabase (should not be the only way it is hsared, but useful to support those using ESRI tools)
+
+### How to use?
+
+-   ESRI tools: import geopackage, shapefile, fgdb natively.
+
+-   Open source: QGIS can import from all natively, and can write to all by
+
+### How to implement?
+
+-   R packages like sf can write to most of these using the write_sf() function
+
+-   Python similar with
+
+-   ArcGIS Online/Enterprise portal can make geopackage, shapefile, geojson, and fgdb downloads from hosted feature layers
+
+# Geospatial API Standards
+
+### Why?
+
+So software like web maps and automated analysis scripts can select the data they need on the fly or update only new data as necessary, without having to download the entirety of what might be a massive dataset every time it is needed.
+
+### Which ones?
+
+### How to use?
+
+### How to implement
+
+-   ArcGIS Online/ Enterprise Portal supports publishing from hosted layers, which can be uploaded from shapefiles, geojson, fgdb, or directly from linked ArcGIS Pro instances
+
+    -   OGC-API Features
+
+    -   OGC WFS
+
+    -   ESRI FeatureServer/MapServer
+
+-   Geoserver supports OGC-API Features and OGC WFS
+
+-   pygeoapi supports OGC-API Features
+
+### 
+
+```{r}
+3+3
+```
