@@ -6,10 +6,7 @@ format: html
 
 # Geospatial Vector Data
 
-In this blog, I am going to describe some practices that the
-Internet of Water recommends when it comes to sharing geospatial vector data. But
-first, what is geospatial vector data, and why is it important as a component
-of water data?
+In this blog, I am going to describe some practices that the Internet of Water recommends when it comes to sharing geospatial vector data. But first, what is geospatial vector data, and why is it important as a component of water data?
 
 Geospatial vector data represents particular features (things with locations in GIS speak) on Earth, and attributes about them. In general, vector data uses combinations of X-Y coordinates to describe the location, which might be a discrete **point**, **line**, **polygon**, or collections of any of them. Vector data is important for water science and management, because it is often at the foundation of how we generate, analyze, and communicate water data.
 
@@ -43,15 +40,23 @@ map
 
 ```
 
-It is important to be able to share this data in ways that are easy for scientists to analyze and for software developers to work with to make decision support tools and public communication materials. This is where **Data Standards** and **API Standards** come into play.
+It is important to be able to share this data in ways that are easy for scientists and water professionals to analyze and for developers to work with to make decision support tools and public communication materials. This is where **Data Standards** and **API Standards** come into play.
 
 # Geospatial Data Standards
 
 ### Why?
 
-So people running various analysis software (ArcGIS Pro, QGIS, R, Python, etc) can work with your data without converting to some other special format or fixing formatting issues beforehand
+Geospatial vector data standards are rules regarding the structure and format of data. They address concepts like how point, lines, and polygons can be expressed using coordinates (and coordinate reference systems), and how associated attributes for a given geometry are allowed to be structured and named. Data files that comply with a given data standard can then be used by the same software to be viewed, analyzed, edited, or written, which is great for accessibility! It means that your data can be easily used by others that you share it with, as long as they have software that can work with the standard.
 
-### Which ones?
+The Internet of Water recommends that water-related data should be shared using open (as in well-documented and with a license that allows anyone to use the standard without paying someone) and widely-supported standards so that more people can use the data. There are [many geospatial vector data standards](https://gdal.org/drivers/vector/index.html), but not all are open or widely adopted. Thus, it is also generally considered good practice to provide the same data in [multiple formats](https://www.w3.org/TR/dwbp/#MultipleFormats) where feasible to maximize accessibility.
+
+### OK, so which standards?
+
+Standards are constantly under development, and moreover, different data standards are suited to different uses. Thus, we reccomend different standards for different anticipated uses.
+
+#### Exploration and anlaysis of an entire dataset
+
+Many analysts wish to download an entire dataset and use their own tools and skills to analyze the data. This requires the entire dataset to be downloadable.
 
 -   geopackage for bulk downloads (new NHDHR examples)
 
