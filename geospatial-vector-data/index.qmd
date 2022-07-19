@@ -6,7 +6,7 @@ format: html
 
 # Geospatial Vector Data
 
-In this blog, I am going to describe some practices that the Internet of Water recommends when it comes to sharing geospatial vector data. But first, what is geospatial vector data, and why is it important as a component of water data?
+In this blog, I am going to describe some practices that the Internet of Water Initiative at the Center for Geospatial Solutions when it comes to sharing geospatial vector data. But first, what is geospatial vector data, and why is it important as a component of water data?
 
 Geospatial vector data represents particular features (things with locations in GIS speak) on Earth, and attributes about them. In general, vector data uses combinations of X-Y coordinates to describe the location, which might be a discrete **point**, **line**, **polygon**, or collections of any of them. Vector data is important for water science and management, because it is often at the foundation of how we generate, analyze, and communicate water data.
 
@@ -40,7 +40,7 @@ map
 
 ```
 
-It is important to be able to share geospatial water data -- about watersheds, streams, aquifers, wells, streamgages, bridges, dams, culverts, conduits, effluent outfalls, administrative and management areas etc. This data should be shared in ways that are easy for scientists and water professionals to analyze and for developers to work with to make decision support tools and public communication materials. This is where **Data Standards** and **API Standards** come into play.
+It is important to be able to share geospatial water data -- about watersheds, streams, aquifers, wells, streamgages, bridges, dams, culverts, conduits, effluent outfalls, administrative and management areas etc. This data should be shared in ways that are easy for scientists and water professionals to analyze and for developers to work with to make decision support tools and public communication materials. This is where **Data Standards** and **API Standards** come into play. This blog post focuses on Data Standards, and another blog post in this series will focus on API Standards.
 
 # Geospatial Data Standards
 
@@ -48,7 +48,7 @@ It is important to be able to share geospatial water data -- about watersheds, s
 
 Geospatial vector data standards are rules regarding the structure and format of data. They address concepts like how point, lines, and polygons can be expressed using coordinates (and coordinate reference systems), and how associated attributes for a given geometry are allowed to be structured and named. Data files that comply with a given data standard can then be used by the same software to be viewed, analyzed, edited, or written, which is great for accessibility! It means that your data can be easily used by those you share it with, as long as they have software that can work with the standard.
 
-The Internet of Water recommends that water-related data should be shared using open (as in well-documented and with a license that allows anyone to use the standard without paying someone) and widely-supported standards so that more people can use the data. There are [many geospatial vector data standards](https://gdal.org/drivers/vector/index.html), but not all are open or widely adopted. Thus, it is also generally considered good practice to provide the same data in [multiple formats](https://www.w3.org/TR/dwbp/#MultipleFormats) where feasible to maximize accessibility.
+The Internet of Water Initiative at the Center for Geospatial Solutions that water-related data should be shared using open (as in well-documented and with a license that allows anyone to use the standard without paying someone) and widely-supported standards so that more people can use the data. There are [many geospatial vector data standards](https://gdal.org/drivers/vector/index.html), but not all are open or widely adopted. Thus, it is also generally considered good practice to provide the same data in [multiple formats](https://www.w3.org/TR/dwbp/#MultipleFormats) where feasible to maximize accessibility.
 
 ## OK, so which standards?
 
@@ -58,19 +58,25 @@ Standards are constantly under development, and moreover, different data standar
 
 Many users wish to download an entire dataset and use their own tools and skills to analyze the data. We recommend the following data standards for this type of use case.
 
-#### Current Reccomendations
+#### Current Recommendations
 
--   [**OGC GeoPackage**](https://www.geopackage.org) (`.gpkg`) is a file database format based on [SQLite](https://www.sqlite.org/index.html). It can store raster imagery as well, but it can store all kinds of vector features in any coordinate reference system and associated attributes of many data types (numerical, string, dates). It combines attractive features of binary files (a single-file format that does not require dedicated software to run independently of any analysis tools) and databases (multiple tables and collections of features can be included, and individual rows of tables can be created, read, updated, deleted using SQL).
+-   <div>
 
-    -   **How to use**: GeoPackage files can be read and written by [ESRI ArcGIS Pro](https://www.esri.com/arcgis-blog/products/product/data-management/how-to-use-ogc-geopackages-in-arcgis-pro/), [QGIS](https://docs.qgis.org/3.22/en/docs/training_manual/basic_map/preparation.html#basic-fa-loading-vector-data-from-a-geopackage-database), [Python](https://geopandas.org/en/stable/getting_started/introduction.html?highlight=geopackage#Reading-files), [R](https://r-spatial.github.io/sf/articles/sf2.html), and many other geospatial analysis tools.
+    > ::: {style="background-color: PaleTurquoise;"}
+    > [**OGC GeoPackage**](https://www.geopackage.org) (`.gpkg`) is a file database format based on [SQLite](https://www.sqlite.org/index.html). It can store raster imagery as well, but it can store all kinds of vector features in any coordinate reference system and associated attributes of many data types (numerical, string, dates). It combines attractive features of binary files (a single-file format that does not require dedicated software to run independently of any analysis tools) and databases (multiple tables and collections of features can be included, and individual rows of tables can be created, read, updated, deleted using SQL).
+    >
+    > -   **How to use**: GeoPackage files can be read and written by [ESRI ArcGIS Pro](https://www.esri.com/arcgis-blog/products/product/data-management/how-to-use-ogc-geopackages-in-arcgis-pro/), [QGIS](https://docs.qgis.org/3.22/en/docs/training_manual/basic_map/preparation.html#basic-fa-loading-vector-data-from-a-geopackage-database), [Python](https://geopandas.org/en/stable/getting_started/introduction.html?highlight=geopackage#Reading-files), [R](https://r-spatial.github.io/sf/articles/sf2.html), and many other geospatial analysis tools.
+    >
+    > -   **Best practices for sharing**: GeoPackage files are simple to share since they are one file with no particular size limits. In most cases, it is good practice to include a table in the GeoPackage as a data dictionary that defines the column names and data values for any feature tables included in the geopackage. GeoPackages can also be compressed if desired (e.g. `.zip` , `.gz`) to reduce file size.
+    >
+    > -   **Example in Water Data:** [Here](https://data.ca.gov/dataset/nhd-major-rivers-major-rivers-and-creeks-major-lakes-and-reservoirs/resource/7f1d832e-1042-45c1-ad13-9c5425983f2b) is an example GeoPackage, in this case it includes river flowline features and a data dictionary table.
+    >
+    > -   **Caveats:** While GeoPackages can be viewed and written by ArcGIS Pro, they cannot be used in the ESRI ArcGIS ecosystem as a complete replacement for shapefiles or personal geodatabases (see below). This is because they cannot be used directly (yet) for certain geoprocessing tasks or to host feature layers in ArcGIS Online/ Enterprise Portal. They must be converted to feature classes first.
+    > :::
 
-    -   **Best practices for sharing**: GeoPackage files are simple to share since they are one file with no particular size limits. In most cases, it is good practice to include a table in the GeoPackage as a data dictionary that defines the column names and data values for any feature tables included in the geopackage. GeoPackages can also be compressed if desired (e.g. `.zip` , `.gz`) to reduce file size.
+    </div>
 
-    -   **Example in Water Data:** [Here](https://data.ca.gov/dataset/nhd-major-rivers-major-rivers-and-creeks-major-lakes-and-reservoirs/resource/7f1d832e-1042-45c1-ad13-9c5425983f2b) is an example GeoPackage, in this case it includes river flowline features and a data dictionary table.
-
-    -   **Caveats:** While GeoPackages can be viewed and written by ArcGIS Pro, they cannot be used in the ESRI ArcGIS ecosystem as a complete replacement for shapefiles or personal geodatabases (see below). This is because they cannot be used directly (yet) for certain geoprocessing tasks or to host feature layers in ArcGIS Online/ Enterprise Portal. They must be converted to feature classes first.
-
--   [**shapefile**](https://desktop.arcgis.com/en/arcmap/latest/manage-data/shapefiles/what-is-a-shapefile.htm) (`.shp`, `.shx`, `.dbf,` `.prj`\*) is the most widely used vector data format, although it is quite old and has several disadvantages (see **Caveats**) that GeoPackage addresses. Due to the **Caveats** below, *we recommend sharing shapefiles for convenience alongside GeoPackages*. It is a multifile format distributed in a single folder, minimally with `.shp` storing the geometry, `.shx` holding an index to allow fast querying, and `.dbf` storing the attribute table. There are many optional files, notably `.prj` storing the coordinate reference system.
+-   [**shapefile**](https://desktop.arcgis.com/en/arcmap/latest/manage-data/shapefiles/what-is-a-shapefile.htm) (`.shp`, `.shx`, `.dbf,` `.prj`\*) is the most widely used vector data format, although it is quite old and has several disadvantages (see **Caveats**) that GeoPackage addresses. Due to the **Caveats** below, *we recommend sharing GeoPackages alongside shapefiles*. It is a multifile format distributed in a single folder, minimally with `.shp` storing the geometry, `.shx` holding an index to allow fast querying, and `.dbf` storing the attribute table. There are many optional files, notably `.prj` storing the coordinate reference system.
 
     -   **How to use**: shapefiles can be read and written directly by almost all widely used geospatial data analysis tools. All files should be in the same folder when working with shapefiles. The `.dbf` attribute table can be opened by Microsoft Excel and other spreadsheet software.
 
@@ -94,7 +100,7 @@ Many users wish to download an entire dataset and use their own tools and skills
 
         -   limited to one layer/table of one geometry type.
 
--   [**ESRI file geodatabase**](https://pro.arcgis.com/en/pro-app/latest/help/data/geodatabases/manage-file-gdb/file-geodatabases.htm) (`.gdb`) is a proprietary file database developed by ESRI with similar capabilities to GeoPackage, and does not have the Caveats associated with shapefiles. It is optimized for use within the ESRI ArcGIS ecosystem. It can be distributed as a folder with the extension `.gdb`, within which are many binary files. Due to being optimized for use with ESRI software, it is recommended to use this standard *only if **only** ESRI users* are intended to be supported. Otherwise, *it is recommended to distribute geodatabases along with GeoPackages.*
+-   [**ESRI file geodatabase**](https://pro.arcgis.com/en/pro-app/latest/help/data/geodatabases/manage-file-gdb/file-geodatabases.htm) (`.gdb`) is a proprietary file database developed by ESRI with similar capabilities to GeoPackage, and does not have the Caveats associated with shapefiles. It is optimized for use within the ESRI ArcGIS ecosystem. It can be distributed as a folder with the extension `.gdb`, within which are many binary files. Due to being optimized for use with ESRI software, it is recommended to use this standard *only if **only** ESRI users* are intended to be supported. Otherwise, *it is recommended to distribute GeoPackages alongside geodatabases.*
 
     -   **How to use**: geodatabases can be read by [ESRI ArcGIS Pro](https://pro.arcgis.com/en/pro-app/latest/help/data/geodatabases/manage-file-gdb/file-geodatabases.htm), [QGIS](https://docs.qgis.org/3.22/en/docs/user_manual/managing_data_source/opening_data.html?highlight=geodatabase#loading-a-layer-from-a-file), [Python](https://geopandas.org/en/stable/getting_started/introduction.html?highlight=geopackage#Reading-files), [R](https://r-spatial.github.io/sf/articles/sf2.html), however, they can only be written using software that includes a licensed ESRI SDK.
 
@@ -112,99 +118,38 @@ Many users wish to download an entire dataset and use their own tools and skills
 
 Sometimes it is not desirable to download an entire dataset and use it in an analysis software. Rather, data might only need to be visualized in a web mapping application in a browser window. Or perhaps, only a small subset of data for a particular area may need to be accessed for a given activity. We recommend the following data standards for this type of use case.
 
--   [GeoJSON](https://geojson.org) (`.geojson` or `.json`) is a vector data format based on [JSON](https://www.json.org/json-en.html). As such, they are plain text files, very easy to parse by most web development tools and web browsers, and easy to work with for web developers. In many ways, it should be considered a default standard for representing geospatial vector data on the web.
+-   ::: {style="background-color: PaleTurquoise;"}
+    > [GeoJSON](https://geojson.org) (`.geojson` or `.json`) is a vector data format based on [JSON](https://www.json.org/json-en.html). As such, they are plain text files, very easy to parse by most web development tools and web browsers, and easy to work with for web developers. For many use cases, it can be considered a default standard for publishing geospatial vector data on the web.
+    >
+    > -   **How to use**: `.geojson` files can be read and written by any text editor, as well as [ESRI ArcGIS Online or Enterprise Portal](https://doc.arcgis.com/en/arcgis-online/reference/geojson.htm), [QGIS](https://docs.qgis.org/3.22/en/docs/user_manual/managing_data_source/opening_data.html?highlight=geojson), [Python](https://geopandas.org/en/stable/getting_started/introduction.html?highlight=geojson#Reading-files), [R](https://r-spatial.github.io/sf/articles/sf2.html), and many other geospatial analysis tools that use [GDAL](https://gdal.org/drivers/vector/index.html).. However, an important use case for them is embedding them in web maps using web development languages like [JavaScript](https://www.javascript.com), specifically in frameworks like [leaflet](https://leafletjs.com/examples/geojson/) or [OpenLayers](https://openlayers.org/en/latest/examples/geojson.html).
+    >
+    > -   **Best practices for sharing**: geojson files can be shared as single files, and can be compressed if desired (e.g. `.zip` , `.gz`) to reduce file size. However, a more appropriate use case for geojson is to be hosted on the web accessible via HTTP request, which may involve being returned by a geospatial data web API (look out for the next blog post on Geospatial API Standards). In either case, it should be noted that the coordinate reference system of any shared geojson data *must* be WGS84.
+    >
+    > -   **Example in Water Data:** [Here](https://raw.githubusercontent.com/internetofwater/trianglewatersupplydashboard/master/deploy/nc-water-supply/data/reservoirs/usace_sites.geojson) is an example geojson hosted on the web, which can also be visualized [directly in a web map](https://github.com/internetofwater/trianglewatersupplydashboard/blob/master/deploy/nc-water-supply/data/reservoirs/usace_sites.geojson). In this case it includes dam location data.
+    >
+    > -   **Caveats:**
+    >
+    >     -   GeoJSON files tend to be space inefficient, increasing in size with increasing amounts of data faster than many other data formats. This can make web maps based directly on geojson files very slow to load if there are many and/or complex geometries.
+    >
+    >     -   WGS 84 latitude/longitude is the **only** supported coordinate reference system
+    >
+    >     -   For ESRI users, geojson files can be used easily by ArcGIS Online but NOT ArcGIS Pro without the [interoperability exension](https://www.esri.com/en-us/arcgis/products/arcgis-data-interoperability/overview)
+    :::
 
-    -   **How to use**: `.geojson` files can be read and written by any text editor, as well as [ESRI ArcGIS Online or Enterprise Portal](https://doc.arcgis.com/en/arcgis-online/reference/geojson.htm), [QGIS](https://docs.qgis.org/3.22/en/docs/user_manual/managing_data_source/opening_data.html?highlight=geojson), [Python](https://geopandas.org/en/stable/getting_started/introduction.html?highlight=geojson#Reading-files), [R](https://r-spatial.github.io/sf/articles/sf2.html), and many other geospatial analysis tools that use [GDAL](https://gdal.org/drivers/vector/index.html).. However, an important use case for them is embedding them in web maps using web development languages like [JavaScript](https://www.javascript.com), specifically in frameworks like [leaflet](https://leafletjs.com/examples/geojson/) or [OpenLayers](https://openlayers.org/en/latest/examples/geojson.html).
-
-    -   **Best practices for sharing**: geojson files can be shared as single files, and can be compressed if desired (e.g. `.zip` , `.gz`) to reduce file size. However, a more appropriate use case for geojson is to be returned by a geospatial data web API (see section on Geospatial API Standards). In either case, it should be noted that the coordinate reference system of any shared geojson data *must* be WGS84.
-
-    -   **Example in Water Data:** [Here](https://data.ca.gov/dataset/nhd-major-rivers-major-rivers-and-creeks-major-lakes-and-reservoirs/resource/7f1d832e-1042-45c1-ad13-9c5425983f2b) is an example GeoPackage, in this case it includes river flowline features and a data dictionary table.
-
-    -   **Caveats:**
-
-        -   GeoJSON files tend to be inefficient, increasing in size with increasing amounts of data faster than many other data formats. This can make web maps based on geojson files very slow to load if there are many and/or complex geometries.
-
-        -   WGS 84 latitude/longitude is the **only** supported coordinate reference system
-
-        -   For ESRI users, geojson files can be used easily by ArcGIS Online but NOT ArcGIS Pro without the [interoperability exension](https://www.esri.com/en-us/arcgis/products/arcgis-data-interoperability/overview)
-
-```{=html}
-<!-- -->
-```
 -   [FlatGeoBuf](https://flatgeobuf.org) (`.fgb`) is a developing binary vector data format designed to allow streaming, random access to the data. That is, the file can be queried partially from a remote web location.
 
     -   **How to use**: `.fgb` files can be read by [QGIS](https://docs.qgis.org/3.22/en/docs/user_manual/managing_data_source/opening_data.html?highlight=geojson), [Python](https://geopandas.org/en/stable/getting_started/introduction.html?highlight=geojson#Reading-files), [R](https://r-spatial.github.io/sf/articles/sf2.html), and many other geospatial analysis tools that use [GDAL](https://gdal.org/drivers/vector/index.html). However, an important use case for them is embedding them in web maps using web development languages like [JavaScript](https://www.javascript.com), specifically in frameworks like [leaflet](https://flatgeobuf.org/examples/leaflet/) or [OpenLayers](https://flatgeobuf.org/examples/openlayers).
 
     -   **Best practices for sharing**: `.fgb` files can be shared as single files, and can be compressed if desired (e.g. `.zip` , `.gz`) to reduce file size. However, the most appropriate use case for this format is for it to be hosted at a web location accessible via HTTP request, so that web maps built in leaflet, OpenLayers, and similar frameworks can request data from the `.fgb`.
 
-    -   **Example in Water Data:** [Here](https://data.ca.gov/dataset/nhd-major-rivers-major-rivers-and-creeks-major-lakes-and-reservoirs/resource/7f1d832e-1042-45c1-ad13-9c5425983f2b) is an example FlatGeoBuf, in this case it includes river flowline features and a data dictionary table.
+    -   **Example:** [Here](https://flatgeobuf.org/test/data/UScounties.fgb) is an example FlatGeoBuf hosted on the web, which is directly accessed to create this [web map](https://flatgeobuf.org/examples/leaflet/).
 
     -   **Caveats:**
 
-        -   GeoJSON files tend to be inefficient, increasing in size with increasing amounts of data faster than many other data formats
+        -   `.fgb` files are complex and not suited for transactional data management processes. They should be treated as static datasets that need to be replaced entirely with new versions when updates are needed.
 
-        -   WGS 84 latitude/longitude is the **only** supported coordinate reference system
+        -   For ESRI users, there is currently no support for this format.
 
-        -   For ESRI users, geojson files can be used easily by ArcGIS Online but NOT ArcGIS Pro without the [interoperability exension](https://www.esri.com/en-us/arcgis/products/arcgis-data-interoperability/overview)
+        -   `.fgb` is an open-source project, but is not part of any community standards development process, so its development trajectory and long-term support are uncertain.
 
-# Geospatial API Standards
-
-### Why?
-
-So software like web maps and automated analysis scripts can select the data they need on the fly or update only new data as necessary, without having to download the entirety of what might be a massive dataset every time it is needed.
-
-### Which ones?
-
--   **OGC-API Features** is a vector data format based on [JSON](https://www.json.org/json-en.html). As such, they are plain text files, very easy to parse by most web development tools and web browsers, and easy to work with for web developers. In many ways, it should be considered a default standard for representing geospatial vector data on the web.
-
-    -   **How to use**: `.geojson` files can be read and written by any text editor, as well as [ESRI ArcGIS Online or Enterprise Portal](https://doc.arcgis.com/en/arcgis-online/reference/geojson.htm), [QGIS](https://docs.qgis.org/3.22/en/docs/user_manual/managing_data_source/opening_data.html?highlight=geojson), [Python](https://geopandas.org/en/stable/getting_started/introduction.html?highlight=geojson#Reading-files), [R](https://r-spatial.github.io/sf/articles/sf2.html),
-
-    -   **Best practices for sharing**: geojson files can be shared as single files, and can be compressed if desired (e.g. `.zip` , `.gz`) to reduce file size.
-
-    -   **Example in Water Data:** [Here](https://data.ca.gov/dataset/nhd-major-rivers-major-rivers-and-creeks-major-lakes-and-reservoirs/resource/7f1d832e-1042-45c1-ad13-9c5425983f2b) is an example GeoPackage, in this case it includes river flowline features and a data dictionary table.
-
-    -   **Caveats:**
-
-        -   GeoJSON files tend to be inefficient, increasing in size with increasing amounts of data faster than many other data formats. This can make web maps based on geojson files very slow to load if there are many and/or complex geometries.
-
-        -   WGS 84 latitude/longitude is the **only** supported coordinate reference system
-
-        -   For ESRI users, geojson files can be used easily by ArcGIS Online but NOT ArcGIS Pro without the [interoperability exension](https://www.esri.com/en-us/arcgis/products/arcgis-data-interoperability/overview)
-
-```{=html}
-<!-- -->
-```
--   **OGC-Web Feature Service** is a vector data format based on [JSON](https://www.json.org/json-en.html). As such, they are plain text files, very easy to parse by most web development tools and web browsers, and easy to work with for web developers. In many ways, it should be considered a default standard for representing geospatial vector data on the web.
-
-    -   **How to use**: `.geojson` files can be read and written by any text editor, as well as [ESRI ArcGIS Online or Enterprise Portal](https://doc.arcgis.com/en/arcgis-online/reference/geojson.htm), [QGIS](https://docs.qgis.org/3.22/en/docs/user_manual/managing_data_source/opening_data.html?highlight=geojson), [Python](https://geopandas.org/en/stable/getting_started/introduction.html?highlight=geojson#Reading-files), [R](https://r-spatial.github.io/sf/articles/sf2.html),
-
-    -   **Best practices for sharing**: geojson files can be shared as single files, and can be compressed if desired (e.g. `.zip` , `.gz`) to reduce file size.
-
-    -   **Example in Water Data:** [Here](https://data.ca.gov/dataset/nhd-major-rivers-major-rivers-and-creeks-major-lakes-and-reservoirs/resource/7f1d832e-1042-45c1-ad13-9c5425983f2b) is an example GeoPackage, in this case it includes river flowline features and a data dictionary table.
-
-    -   **Caveats:**
-
-        -   GeoJSON files tend to be inefficient, increasing in size with increasing amounts of data faster than many other data formats. This can make web maps based on geojson files very slow to load if there are many and/or complex geometries.
-
-        -   WGS 84 latitude/longitude is the **only** supported coordinate reference system
-
-        -   For ESRI users, geojson files can be used easily by ArcGIS Online but NOT ArcGIS Pro without the [interoperability exension](https://www.esri.com/en-us/arcgis/products/arcgis-data-interoperability/overview)
-
-```{=html}
-<!-- -->
-```
--   **ESRI FeatureServer** is a vector data format based on [JSON](https://www.json.org/json-en.html). As such, they are plain text files, very easy to parse by most web development tools and web browsers, and easy to work with for web developers. In many ways, it should be considered a default standard for representing geospatial vector data on the web.
-
-    -   **How to use**: `.geojson` files can be read and written by any text editor, as well as [ESRI ArcGIS Online or Enterprise Portal](https://doc.arcgis.com/en/arcgis-online/reference/geojson.htm), [QGIS](https://docs.qgis.org/3.22/en/docs/user_manual/managing_data_source/opening_data.html?highlight=geojson), [Python](https://geopandas.org/en/stable/getting_started/introduction.html?highlight=geojson#Reading-files), [R](https://r-spatial.github.io/sf/articles/sf2.html),
-
-    -   **Best practices for sharing**: geojson files can be shared as single files, and can be compressed if desired (e.g. `.zip` , `.gz`) to reduce file size.
-
-    -   **Example in Water Data:** [Here](https://data.ca.gov/dataset/nhd-major-rivers-major-rivers-and-creeks-major-lakes-and-reservoirs/resource/7f1d832e-1042-45c1-ad13-9c5425983f2b) is an example GeoPackage, in this case it includes river flowline features and a data dictionary table.
-
-    -   **Caveats:**
-
-        -   GeoJSON files tend to be inefficient, increasing in size with increasing amounts of data faster than many other data formats. This can make web maps based on geojson files very slow to load if there are many and/or complex geometries.
-
-        -   WGS 84 latitude/longitude is the **only** supported coordinate reference system
-
-        -   For ESRI users, geojson files can be used easily by ArcGIS Online but NOT ArcGIS Pro without the [interoperability exension](https://www.esri.com/en-us/arcgis/products/arcgis-data-interoperability/overview)
+For additional guidance on geospatial vector data in a water data context, feel free to reach out to Kyle Onda (konda\@lincolninst.edu).

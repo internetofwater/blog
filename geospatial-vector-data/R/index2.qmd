@@ -1,0 +1,67 @@
+---
+title: "index2"
+---
+
+# Geospatial API Standards
+
+### Why?
+
+Geospatial vector data APIs allow data users to access subsets of data from a given source on the fly, without needing to download and store an entire dataset and worry about keeping it up to date. Geospatial vector data APIs usually allow users to query the online data source by spatial (e.g. bounding box or polygon) and attribute (e.g. name, type) filters. This allows users to automate processes like "find the locations of all known wells within 10 miles of this point" that might be useful for analyzing recent groundwater level trends in an area of interest, or making a web map of those wells for management or public communications purposes.
+
+API Standards
+
+So software like web maps and automated analysis scripts can select the data they need on the fly or update only new data as necessary, without having to download the entirety of what might be a massive dataset every time it is needed.
+
+### Which ones?
+
+-   **OGC-API Features** is a vector data format based on [JSON](https://www.json.org/json-en.html). As such, they are plain text files, very easy to parse by most web development tools and web browsers, and easy to work with for web developers. In many ways, it should be considered a default standard for representing geospatial vector data on the web.
+
+    -   **How to use**: `.geojson` files can be read and written by any text editor, as well as [ESRI ArcGIS Online or Enterprise Portal](https://doc.arcgis.com/en/arcgis-online/reference/geojson.htm), [QGIS](https://docs.qgis.org/3.22/en/docs/user_manual/managing_data_source/opening_data.html?highlight=geojson), [Python](https://geopandas.org/en/stable/getting_started/introduction.html?highlight=geojson#Reading-files), [R](https://r-spatial.github.io/sf/articles/sf2.html),
+
+    -   **Best practices for sharing**: geojson files can be shared as single files, and can be compressed if desired (e.g. `.zip` , `.gz`) to reduce file size.
+
+    -   **Example in Water Data:** [Here](https://data.ca.gov/dataset/nhd-major-rivers-major-rivers-and-creeks-major-lakes-and-reservoirs/resource/7f1d832e-1042-45c1-ad13-9c5425983f2b) is an example GeoPackage, in this case it includes river flowline features and a data dictionary table.
+
+    -   **Caveats:**
+
+        -   GeoJSON files tend to be inefficient, increasing in size with increasing amounts of data faster than many other data formats. This can make web maps based on geojson files very slow to load if there are many and/or complex geometries.
+
+        -   WGS 84 latitude/longitude is the **only** supported coordinate reference system
+
+        -   For ESRI users, geojson files can be used easily by ArcGIS Online but NOT ArcGIS Pro without the [interoperability exension](https://www.esri.com/en-us/arcgis/products/arcgis-data-interoperability/overview)
+
+<!-- -->
+
+-   **OGC-Web Feature Service** is a vector data format based on [JSON](https://www.json.org/json-en.html). As such, they are plain text files, very easy to parse by most web development tools and web browsers, and easy to work with for web developers. In many ways, it should be considered a default standard for representing geospatial vector data on the web.
+
+    -   **How to use**: `.geojson` files can be read and written by any text editor, as well as [ESRI ArcGIS Online or Enterprise Portal](https://doc.arcgis.com/en/arcgis-online/reference/geojson.htm), [QGIS](https://docs.qgis.org/3.22/en/docs/user_manual/managing_data_source/opening_data.html?highlight=geojson), [Python](https://geopandas.org/en/stable/getting_started/introduction.html?highlight=geojson#Reading-files), [R](https://r-spatial.github.io/sf/articles/sf2.html),
+
+    -   **Best practices for sharing**: geojson files can be shared as single files, and can be compressed if desired (e.g. `.zip` , `.gz`) to reduce file size.
+
+    -   **Example in Water Data:** [Here](https://data.ca.gov/dataset/nhd-major-rivers-major-rivers-and-creeks-major-lakes-and-reservoirs/resource/7f1d832e-1042-45c1-ad13-9c5425983f2b) is an example GeoPackage, in this case it includes river flowline features and a data dictionary table.
+
+    -   **Caveats:**
+
+        -   GeoJSON files tend to be inefficient, increasing in size with increasing amounts of data faster than many other data formats. This can make web maps based on geojson files very slow to load if there are many and/or complex geometries.
+
+        -   WGS 84 latitude/longitude is the **only** supported coordinate reference system
+
+        -   For ESRI users, geojson files can be used easily by ArcGIS Online but NOT ArcGIS Pro without the [interoperability exension](https://www.esri.com/en-us/arcgis/products/arcgis-data-interoperability/overview)
+
+<!-- -->
+
+-   **ESRI FeatureServer** is a vector data format based on [JSON](https://www.json.org/json-en.html). As such, they are plain text files, very easy to parse by most web development tools and web browsers, and easy to work with for web developers. In many ways, it should be considered a default standard for representing geospatial vector data on the web.
+
+    -   **How to use**: `.geojson` files can be read and written by any text editor, as well as [ESRI ArcGIS Online or Enterprise Portal](https://doc.arcgis.com/en/arcgis-online/reference/geojson.htm), [QGIS](https://docs.qgis.org/3.22/en/docs/user_manual/managing_data_source/opening_data.html?highlight=geojson), [Python](https://geopandas.org/en/stable/getting_started/introduction.html?highlight=geojson#Reading-files), [R](https://r-spatial.github.io/sf/articles/sf2.html),
+
+    -   **Best practices for sharing**: geojson files can be shared as single files, and can be compressed if desired (e.g. `.zip` , `.gz`) to reduce file size.
+
+    -   **Example in Water Data:** [Here](https://data.ca.gov/dataset/nhd-major-rivers-major-rivers-and-creeks-major-lakes-and-reservoirs/resource/7f1d832e-1042-45c1-ad13-9c5425983f2b) is an example GeoPackage, in this case it includes river flowline features and a data dictionary table.
+
+    -   **Caveats:**
+
+        -   GeoJSON files tend to be inefficient, increasing in size with increasing amounts of data faster than many other data formats. This can make web maps based on geojson files very slow to load if there are many and/or complex geometries.
+
+        -   WGS 84 latitude/longitude is the **only** supported coordinate reference system
+
+        -   For ESRI users, geojson files can be used easily by ArcGIS Online but NOT ArcGIS Pro without the [interoperability exension](https://www.esri.com/en-us/arcgis/products/arcgis-data-interoperability/overview)
