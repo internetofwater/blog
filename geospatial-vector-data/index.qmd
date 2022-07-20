@@ -38,6 +38,8 @@ map <- map + mapview::mapview(nldi_data$UTwqp, color="black", col.regions="green
 
 map
 
+mapshot(map,url="map.html")
+
 ```
 
 It is important to be able to share geospatial water data -- about watersheds, streams, aquifers, wells, streamgages, bridges, dams, culverts, conduits, effluent outfalls, administrative and management areas etc. This data should be shared in ways that are easy for scientists and water professionals to analyze and for developers to work with to make decision support tools and public communication materials. This is where **Data Standards** and **API Standards** come into play. This blog post focuses on Data Standards, and another blog post in this series will focus on API Standards.
